@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TreasureHunt</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="TreasureHunt is a thrift scanner and resale map for iPhone. Scan finds, see what to check, plan your thrift run, and track every sale.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..700,50..100&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: left-aligned editorial column, asymmetric hero (copy left, scan frame right), sections stack at phone width. */
+:root{
+  --canvas:#F8F5EF; --card:#FFFCF7; --parchment:#F1EADF; --line:#DDD5CA;
+  --ink:#1E1B17; --muted:#5F5A52; --gold:#B78C24; --gold-fill:#9D7618; --gold-text:#7E5E12;
+  --blue:#365B7A; --green:#4A6B40; --amber:#9A4F12; --on-gold:#FFFFFF;
+  --display:"Fraunces", "Iowan Old Style", Georgia, serif;
+  --body:"Instrument Sans", -apple-system, "Segoe UI", system-ui, sans-serif;
+  --radius:18px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --canvas:#191612; --card:#221E19; --parchment:#2B261F; --line:#3A342B;
+  --ink:#F3EDE2; --muted:#B7AE9F; --gold:#D2A646; --gold-fill:#C79A3A; --gold-text:#E2BC66;
+  --blue:#8DB2D2; --green:#9BC38B; --amber:#E19A5C; --on-gold:#1E1B17; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --canvas:#191612; --card:#221E19; --parchment:#2B261F; --line:#3A342B;
+  --ink:#F3EDE2; --muted:#B7AE9F; --gold:#D2A646; --gold-fill:#C79A3A; --gold-text:#E2BC66;
+  --blue:#8DB2D2; --green:#9BC38B; --amber:#E19A5C; --on-gold:#1E1B17; color-scheme:dark }
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--canvas); color:var(--ink); font-family:var(--body); font-size:17px; line-height:1.6; margin:0}
+a{color:var(--gold-text); text-underline-offset:3px}
+a:focus-visible, button:focus-visible, summary:focus-visible{outline:3px solid var(--gold); outline-offset:3px; border-radius:6px}
+.wrap{max-width:1120px; margin:0 auto; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px))}
+h1,h2,h3{font-family:var(--display); font-weight:600; line-height:1.08; text-wrap:balance; margin:0; font-variation-settings:"SOFT" 80}
+h1{font-size:clamp(2.6rem, 6.4vw, 4.6rem); letter-spacing:-0.02em; font-weight:650}
+h2{font-size:clamp(1.9rem, 3.6vw, 2.7rem); letter-spacing:-0.012em}
+h3{font-size:1.3rem}
+p{margin:0}
+.lede{font-size:1.2rem; color:var(--muted); max-width:34em}
+.muted{color:var(--muted)}
+.small{font-size:.92rem}
+
+/* Header */
+.site-head{padding-block:18px}
+.site-head .wrap{display:flex; align-items:center; gap:24px; flex-wrap:wrap}
+.brand{font-family:var(--display); font-size:1.45rem; font-weight:650; color:var(--ink); text-decoration:none; letter-spacing:-0.01em}
+.nav{display:flex; gap:20px; flex-wrap:wrap; margin-left:auto; align-items:center}
+.nav a{color:var(--ink); text-decoration:none; font-weight:500; font-size:.98rem}
+.nav a:hover{color:var(--gold-text)}
+
+.btn{display:inline-flex; align-items:center; gap:10px; min-height:48px; padding:0 22px; border-radius:999px; background:var(--gold-fill); color:var(--on-gold); font-weight:600; text-decoration:none; border:0; font:600 1rem var(--body); cursor:pointer}
+.btn:hover{filter:brightness(1.06)}
+.btn.ghost{background:transparent; color:var(--gold-text); box-shadow:inset 0 0 0 1.5px var(--gold)}
+.btn svg{width:18px; height:18px; fill:currentColor}
+
+/* Hero */
+.hero{padding-block:36px 72px}
+.hero .wrap{display:grid; grid-template-columns:1.05fr 1fr; gap:56px; align-items:center}
+.hero .copy{display:grid; gap:22px; min-width:0}
+.hero .actions{display:flex; gap:12px; flex-wrap:wrap; align-items:center}
+.scanstage{position:relative; aspect-ratio:1/1; max-width:100%; background:var(--parchment); border-radius:32px; overflow:hidden}
+.scanstage svg{width:100%; height:100%; display:block}
+.frame path{fill:none; stroke:var(--gold-fill); stroke-width:7; stroke-linecap:round}
+.frame{transform-origin:50% 50%; animation:lock 1.1s cubic-bezier(.2,.9,.25,1.15) .35s both}
+@keyframes lock{from{transform:scale(1.32)} to{transform:scale(1)}}
+.match{position:absolute; left:6%; right:6%; bottom:6%; display:flex; gap:12px; align-items:center; background:var(--card); border-radius:16px; padding:14px 16px; box-shadow:0 10px 30px rgba(30,27,23,.12); animation:rise .6s ease-out 1.25s both}
+@keyframes rise{from{transform:translateY(16px); opacity:0} to{transform:none; opacity:1}}
+.match .seal{flex:none; width:34px; height:34px; border-radius:50%; background:var(--green); display:grid; place-items:center}
+.match .seal svg{width:18px; height:18px; fill:var(--card)}
+.match b{display:block; font-weight:600; line-height:1.3}
+.match span{font-size:.92rem; color:var(--muted)}
+@media (prefers-reduced-motion: reduce){ .frame,.match{animation:none} }
+
+/* Sections */
+section.band{padding-block:72px; border-top:1px solid var(--line)}
+.split{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start}
+.split > *{min-width:0}
+.stack{display:grid; gap:18px}
+.points{display:grid; gap:22px; margin-top:8px}
+.point h3{margin-bottom:6px}
+
+/* Example result card */
+.result{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:22px; display:grid; gap:14px}
+.result .title{font-family:var(--display); font-size:1.5rem; font-weight:600; line-height:1.15}
+.chips{display:flex; gap:8px; flex-wrap:wrap}
+.chip{font-size:.85rem; font-weight:500; padding:5px 11px; border-radius:999px; background:var(--parchment); color:var(--gold-text)}
+.chip.ok{color:var(--green)}
+.checklist{display:grid; gap:6px; margin:0; padding:0; list-style:none}
+.checklist li{display:flex; gap:10px}
+.checklist li::before{content:"?"; flex:none; width:22px; height:22px; border-radius:50%; background:var(--parchment); color:var(--amber); font-weight:700; font-size:.8rem; display:grid; place-items:center; margin-top:3px}
+.verdict{border-top:1px solid var(--line); padding-top:14px; display:grid; gap:4px}
+.verdict b{font-family:var(--display); font-size:1.15rem; font-weight:600}
+.example-tag{font-size:.82rem; color:var(--muted)}
+
+/* Map illustration */
+.mapart{background:var(--parchment); border-radius:var(--radius); overflow:hidden; max-width:100%}
+.mapart svg{display:block; width:100%; height:auto}
+.kinds{display:flex; flex-wrap:wrap; gap:8px}
+
+/* Ledger */
+.ledger{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden}
+.ledger .row{display:grid; grid-template-columns:1fr auto; gap:12px; padding:14px 18px; border-top:1px solid var(--line); align-items:baseline}
+.ledger .row:first-child{border-top:0}
+.ledger .amt{font-family:var(--display); font-weight:600; font-variant-numeric:tabular-nums}
+.ledger .net{background:var(--parchment)}
+.ledger .net .amt{color:var(--green); font-size:1.3rem}
+
+/* Plans */
+.plans{display:grid; grid-template-columns:1fr 1fr; gap:20px}
+.plan{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:24px; display:grid; gap:10px; align-content:start}
+.plan.pro{border-color:var(--gold)}
+.plan ul{margin:0; padding-left:1.1em; display:grid; gap:4px}
+.price{font-family:var(--display); font-size:1.6rem; font-weight:600}
+
+/* Support */
+.faq{display:grid; gap:10px}
+details{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:4px 18px}
+summary{cursor:pointer; font-weight:600; padding-block:14px; list-style-position:outside}
+details p{padding-bottom:16px; color:var(--muted)}
+.contact{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+.email{font-family:var(--body); font-weight:600; font-size:1.1rem; user-select:all; background:var(--parchment); padding:10px 14px; border-radius:12px}
+
+/* Footer */
+.site-foot{padding-block:36px 48px; border-top:1px solid var(--line)}
+.site-foot .wrap{display:flex; gap:20px; flex-wrap:wrap; align-items:baseline; justify-content:space-between}
+.site-foot nav{display:flex; gap:18px; flex-wrap:wrap}
+
+/* Legal pages */
+.doc{max-width:720px; padding-block:24px 72px}
+.doc h1{font-size:clamp(2.2rem, 5vw, 3.2rem); margin-bottom:10px}
+.doc h2{font-size:1.5rem; margin-top:40px; margin-bottom:10px}
+.doc p, .doc li{max-width:66ch}
+.doc ul{padding-left:1.2em; display:grid; gap:6px}
+.doc .p{margin-top:12px}
+.callout{background:var(--parchment); border-radius:14px; padding:16px 18px; margin-top:16px}
+
+@media (max-width: 860px){
+  .hero .wrap, .split, .plans{grid-template-columns:1fr; gap:36px}
+  .hero{padding-block:16px 56px}
+  .scanstage{max-width:520px}
+  section.band{padding-block:56px}
+}
+</style>
+</head>
+<body>
+<header class="site-head"><div class="wrap">
+  <a class="brand" href="index.html">TreasureHunt</a>
+  <nav class="nav" aria-label="Main">
+    <a href="index.html#scan">Scanner</a><a href="index.html#map">Map</a><a href="index.html#finds">Finds</a><a href="index.html#support">Support</a>
+    <a class="btn" href="https://apps.apple.com/us/app/id6762577426"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.6 2.25 2.75 2.21 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.71.71 2.88.69 1.19-.02 1.94-1.08 2.67-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.35-3.55zM14.18 6.13c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23z"/></svg>App Store</a>
+  </nav>
+</div></header>
+<main>
+<section class="hero"><div class="wrap">
+  <div class="copy">
+    <h1>Know what you're holding.</h1>
+    <p class="lede">TreasureHunt is a thrift scanner and resale map for people who buy to resell. Scan a find in the aisle, see what it is and what to check, then plan your next run.</p>
+    <div class="actions">
+      <a class="btn" href="https://apps.apple.com/us/app/id6762577426"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.6 2.25 2.75 2.21 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.71.71 2.88.69 1.19-.02 1.94-1.08 2.67-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.35-3.55zM14.18 6.13c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23z"/></svg>Download on the App Store</a>
+      <span class="small muted">Free on iPhone</span>
+    </div>
+  </div>
+  <div class="scanstage">
+    <svg viewBox="0 0 400 400" role="img" aria-label="A gold scan frame locked onto a teacup and saucer">
+  <g>
+    <ellipse cx="200" cy="262" rx="118" ry="22" fill="var(--line)"/>
+    <ellipse cx="200" cy="252" rx="112" ry="20" fill="var(--card)" stroke="var(--blue)" stroke-width="4"/>
+    <ellipse cx="200" cy="250" rx="58" ry="9" fill="none" stroke="var(--blue)" stroke-width="3" opacity=".55"/>
+    <path d="M128 150 h144 l-14 82 a34 30 0 0 1 -32 22 h-52 a34 30 0 0 1 -32 -22 z" fill="var(--card)" stroke="var(--blue)" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M272 168 c34 -4 46 14 40 32 c-6 18 -28 24 -50 20" fill="none" stroke="var(--blue)" stroke-width="10" stroke-linecap="round"/>
+    <ellipse cx="200" cy="150" rx="72" ry="12" fill="var(--parchment)" stroke="var(--blue)" stroke-width="4"/>
+    <path d="M150 190 q16 -14 32 0 t32 0 t32 0" fill="none" stroke="var(--blue)" stroke-width="4" stroke-linecap="round" opacity=".8"/>
+    <path d="M156 212 q14 -10 28 0 t28 0 t28 0" fill="none" stroke="var(--blue)" stroke-width="3" stroke-linecap="round" opacity=".6"/>
+  </g>
+  <g class="frame">
+    <path d="M78 122 V84 H116"/><path d="M284 84 H322 V122"/><path d="M322 278 V316 H284"/><path d="M116 316 H78 V278"/>
+  </g>
+</svg>
+    <div class="match" aria-hidden="true">
+      <div class="seal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 16.2 5.3 12l-1.4 1.4 5.6 5.6 11-11-1.4-1.4z"/></svg></div>
+      <div><b>Stoneware cup and saucer, 1970s</b><span>Matched on maker's mark</span></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="band" id="scan"><div class="wrap split">
+  <div class="stack">
+    <h2>A few photos. The details that matter.</h2>
+    <p class="lede">Snap the item, then its labels, barcode or maker's mark. TreasureHunt reads barcodes and labels right on your iPhone, then identifies the item and tells you what that identification is based on.</p>
+    <div class="points">
+      <div class="point"><h3>What it is, and how sure</h3><p class="muted">Each result says what it matched on: a barcode, a model label, a maker's mark, or looks alone. When it isn't sure, it asks for the one close-up that would settle it.</p></div>
+      <div class="point"><h3>What to check before you buy</h3><p class="muted">Does the shutter fire, is the lens hazy, is the lid chipped. You get the checks a photo can't answer, specific to the item.</p></div>
+      <div class="point"><h3>No made-up prices</h3><p class="muted">TreasureHunt doesn't guess a price. You get the item, the checks, one-tap searches of eBay sold listings and other marketplaces, and a calculator that turns the real prices you find into your max buy, net and ROI.</p></div>
+    </div>
+  </div>
+  <div class="result" aria-label="Example scan result">
+    <span class="example-tag">Example result</span>
+    <div class="title">Canon AE-1 Program</div>
+    <p class="muted small">35mm film camera, early 1980s</p>
+    <div class="chips"><span class="chip">Matched on model label</span><span class="chip ok">Identity confirmed</span></div>
+    <div><p class="small" style="font-weight:600; color:var(--amber); margin-bottom:6px">Check before buying</p>
+      <ul class="checklist small"><li>Shutter fires at every speed</li><li>Haze or fungus in the lens</li><li>Light seals are intact</li></ul></div>
+    <div class="verdict"><b>Your numbers</b><p class="small muted">Search eBay sold listings, add the prices you find, and see your net and max buy price.</p></div>
+  </div>
+</div></section>
+
+<section class="band" id="map"><div class="wrap split">
+  <div class="mapart"><svg viewBox="0 0 560 340" role="img" aria-label="Example map with three numbered stops joined by a dotted route">
+  <rect width="560" height="340" fill="var(--parchment)"/>
+  <path d="M0 150 L560 128 M180 0 L210 340 M390 0 L360 340 M0 270 L560 300" stroke="var(--card)" stroke-width="14" fill="none"/>
+  <path d="M60 40 q60 30 30 90 t40 120" stroke="var(--blue)" stroke-width="10" fill="none" opacity=".25" stroke-linecap="round"/>
+  <path d="M120 240 L280 96 L450 210" stroke="var(--gold-fill)" stroke-width="4" stroke-dasharray="9 9" fill="none" stroke-linecap="round"/>
+  <g font-family="Instrument Sans, sans-serif" font-weight="700" font-size="17" text-anchor="middle">
+    <circle cx="120" cy="240" r="20" fill="var(--gold)" stroke="var(--card)" stroke-width="5"/><text x="120" y="246" fill="var(--ink)">1</text>
+    <circle cx="280" cy="96" r="20" fill="var(--gold)" stroke="var(--card)" stroke-width="5"/><text x="280" y="102" fill="var(--ink)">2</text>
+    <circle cx="450" cy="210" r="20" fill="var(--gold)" stroke="var(--card)" stroke-width="5"/><text x="450" y="216" fill="var(--ink)">3</text>
+  </g>
+  <g>
+    <circle cx="420" cy="70" r="11" fill="var(--blue)"/><circle cx="70" cy="300" r="11" fill="var(--green)"/><circle cx="330" cy="280" r="11" fill="var(--ink)" opacity=".75"/>
+  </g>
+</svg></div>
+  <div class="stack">
+    <h2>Every thrift stop on one map.</h2>
+    <p class="lede">Goodwill and Goodwill Outlets, Salvation Army, Savers, St. Vincent de Paul, Habitat ReStore, local charity shops, consignment and antique stores, plus estate and garage sales.</p>
+    <p class="muted">Add the stops you want and TreasureHunt puts them in the shortest order, with real drive times. Know a shop that's missing? Add it from the map, and it shows for everyone once it's checked.</p>
+    <div class="kinds"><span class="chip">Thrift</span><span class="chip">Goodwill</span><span class="chip">Consignment</span><span class="chip">Antique &amp; flea</span><span class="chip">Sales</span></div>
+  </div>
+</div></section>
+
+<section class="band" id="finds"><div class="wrap split">
+  <div class="stack">
+    <h2>Every buy, listing and sale, kept.</h2>
+    <p class="lede">Scans save on your iPhone the moment you take them, even with no signal. Mark what you bought, where you listed it and what it sold for.</p>
+    <p class="muted">Finds keeps a running ledger for each item, with fees, shipping and returns, and shows your profit for the month. Each item gets its own SKU and bin location, so you can find it when it sells.</p>
+    <p class="muted">When it's time to list, turn the photos you already took into clean listing photos: white or cream background, square or 4:5, flaws left visible. Share them straight into eBay, Poshmark or Mercari.</p>
+  </div>
+  <div class="ledger" aria-label="Example ledger for one item">
+    <div class="row"><span>Bought at Goodwill</span><span class="amt">−$8.00</span></div>
+    <div class="row"><span>Sold on eBay</span><span class="amt">$59.00</span></div>
+    <div class="row"><span class="muted">eBay fee</span><span class="amt">−$8.42</span></div>
+    <div class="row"><span class="muted">Shipping</span><span class="amt">−$9.98</span></div>
+    <div class="row net"><span><b>Net on this item</b><br><span class="small muted">Example figures</span></span><span class="amt">+$32.60</span></div>
+  </div>
+</div></section>
+
+<section class="band" id="plans"><div class="wrap stack">
+  <h2>Free to start.</h2>
+  <div class="plans">
+    <div class="plan"><h3>Free</h3><ul class="muted"><li>3 AI scans a month</li><li>The full store map and Saturday Route</li><li>Finds ledger and every scan you've taken</li></ul></div>
+    <div class="plan pro"><h3>Pro</h3><p class="muted">Coming soon. 20 AI scans a month, with barcode reads, close-up retakes and marketplace searches always included.</p></div>
+  </div>
+</div></section>
+
+<section class="band" id="support"><div class="wrap split">
+  <div class="stack">
+    <h2>Support</h2>
+    <p class="muted">Questions, a store that's wrong on the map, or something not working: email and you'll hear back from the person who builds the app.</p>
+    <div class="contact">
+      <span class="email" id="email">kernan6580@gmail.com</span>
+      <button class="btn ghost" type="button" id="copy">Copy email</button>
+    </div>
+    <p class="small muted" id="copied" role="status"></p>
+  </div>
+  <div class="faq">
+    <details><summary>Where do my photos go?</summary><p>Scans are saved on your iPhone. When you ask TreasureHunt to identify an item, a smaller copy of up to four photos, plus any barcode or label text, goes to our server and on to Anthropic's Claude to identify it. We don't keep the photos on our server. The <a href="privacy.html">privacy policy</a> has the details.</p></details>
+    <details><summary>Does it tell me what something is worth?</summary><p>It tells you what the item is, what that's based on, and what to check, then takes you straight to sold listings on eBay, Poshmark and Mercari so you can see real prices. Enter what you expect it to sell for and TreasureHunt works out your max buy, net and ROI. It doesn't invent a price.</p></details>
+    <details><summary>Does it work without signal?</summary><p>Yes. Scans save offline and identify on their own when you're back online. The map and route need a connection to load stores.</p></details>
+    <details><summary>A store is missing or closed. How do I fix it?</summary><p>On the map, tap the plus button and choose "Add a missing store", or open a store and tap Report. Reports from two different people hide a closed store for everyone.</p></details>
+    <details><summary>How do I cancel a subscription?</summary><p>Subscriptions are billed through Apple. Open Settings on your iPhone, tap your name, then Subscriptions. Cancel at least 24 hours before renewal to avoid the next charge.</p></details>
+    <details><summary>How do I delete my account?</summary><p>Use the delete option in Account &amp; settings on the Pro tab, or email the address on this page and we'll delete it for you.</p></details>
+  </div>
+</div></section>
+</main>
+<footer class="site-foot"><div class="wrap">
+  <p class="small muted">TreasureHunt is made by Daniel Kernan in the Finger Lakes, New York.</p>
+  <nav class="small" aria-label="Legal"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="index.html#support">Support</a></nav>
+</div></footer>
+<script>
+(function(){
+  var b=document.getElementById("copy"), s=document.getElementById("copied"), e=document.getElementById("email");
+  b.addEventListener("click", function(){
+    var t=e.textContent;
+    function sel(){ try{ var r=document.createRange(); r.selectNodeContents(e); var w=window.getSelection(); w.removeAllRanges(); w.addRange(r); s.textContent="Selected. Press Copy to copy it."; }catch(_){} }
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(function(){ s.textContent="Copied."; }, sel); } else { sel(); }
+  });
+})();
+</script>
+</body>
+</html>
