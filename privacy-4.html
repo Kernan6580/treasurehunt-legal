@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TreasureHunt Privacy Policy</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="What TreasureHunt collects, why, and who receives it.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..700,50..100&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: left-aligned editorial column, asymmetric hero (copy left, scan frame right), sections stack at phone width. */
+:root{
+  --canvas:#F8F5EF; --card:#FFFCF7; --parchment:#F1EADF; --line:#DDD5CA;
+  --ink:#1E1B17; --muted:#5F5A52; --gold:#B78C24; --gold-fill:#9D7618; --gold-text:#7E5E12;
+  --blue:#365B7A; --green:#4A6B40; --amber:#9A4F12; --on-gold:#FFFFFF;
+  --display:"Fraunces", "Iowan Old Style", Georgia, serif;
+  --body:"Instrument Sans", -apple-system, "Segoe UI", system-ui, sans-serif;
+  --radius:18px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --canvas:#191612; --card:#221E19; --parchment:#2B261F; --line:#3A342B;
+  --ink:#F3EDE2; --muted:#B7AE9F; --gold:#D2A646; --gold-fill:#C79A3A; --gold-text:#E2BC66;
+  --blue:#8DB2D2; --green:#9BC38B; --amber:#E19A5C; --on-gold:#1E1B17; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --canvas:#191612; --card:#221E19; --parchment:#2B261F; --line:#3A342B;
+  --ink:#F3EDE2; --muted:#B7AE9F; --gold:#D2A646; --gold-fill:#C79A3A; --gold-text:#E2BC66;
+  --blue:#8DB2D2; --green:#9BC38B; --amber:#E19A5C; --on-gold:#1E1B17; color-scheme:dark }
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--canvas); color:var(--ink); font-family:var(--body); font-size:17px; line-height:1.6; margin:0}
+a{color:var(--gold-text); text-underline-offset:3px}
+a:focus-visible, button:focus-visible, summary:focus-visible{outline:3px solid var(--gold); outline-offset:3px; border-radius:6px}
+.wrap{max-width:1120px; margin:0 auto; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px))}
+h1,h2,h3{font-family:var(--display); font-weight:600; line-height:1.08; text-wrap:balance; margin:0; font-variation-settings:"SOFT" 80}
+h1{font-size:clamp(2.6rem, 6.4vw, 4.6rem); letter-spacing:-0.02em; font-weight:650}
+h2{font-size:clamp(1.9rem, 3.6vw, 2.7rem); letter-spacing:-0.012em}
+h3{font-size:1.3rem}
+p{margin:0}
+.lede{font-size:1.2rem; color:var(--muted); max-width:34em}
+.muted{color:var(--muted)}
+.small{font-size:.92rem}
+
+/* Header */
+.site-head{padding-block:18px}
+.site-head .wrap{display:flex; align-items:center; gap:24px; flex-wrap:wrap}
+.brand{font-family:var(--display); font-size:1.45rem; font-weight:650; color:var(--ink); text-decoration:none; letter-spacing:-0.01em}
+.nav{display:flex; gap:20px; flex-wrap:wrap; margin-left:auto; align-items:center}
+.nav a{color:var(--ink); text-decoration:none; font-weight:500; font-size:.98rem}
+.nav a:hover{color:var(--gold-text)}
+
+.btn{display:inline-flex; align-items:center; gap:10px; min-height:48px; padding:0 22px; border-radius:999px; background:var(--gold-fill); color:var(--on-gold); font-weight:600; text-decoration:none; border:0; font:600 1rem var(--body); cursor:pointer}
+.btn:hover{filter:brightness(1.06)}
+.btn.ghost{background:transparent; color:var(--gold-text); box-shadow:inset 0 0 0 1.5px var(--gold)}
+.btn svg{width:18px; height:18px; fill:currentColor}
+
+/* Hero */
+.hero{padding-block:36px 72px}
+.hero .wrap{display:grid; grid-template-columns:1.05fr 1fr; gap:56px; align-items:center}
+.hero .copy{display:grid; gap:22px; min-width:0}
+.hero .actions{display:flex; gap:12px; flex-wrap:wrap; align-items:center}
+.scanstage{position:relative; aspect-ratio:1/1; max-width:100%; background:var(--parchment); border-radius:32px; overflow:hidden; border:1px solid var(--line); box-shadow:0 18px 50px rgba(30,27,23,.12)}
+.scanstage img{display:block; width:100%; height:100%; object-fit:cover}
+.phone{background:#1E1B17; border-radius:44px; padding:12px; max-width:340px; margin:0 auto; box-shadow:0 24px 60px rgba(30,27,23,.18)}
+.phone img{display:block; width:100%; height:auto; border-radius:34px}
+.price{font-family:var(--display); font-size:1.6rem; font-weight:600; line-height:1.2}
+.price small{font-family:var(--sans); font-size:.95rem; font-weight:400; color:var(--muted)}
+.scanstage svg{width:100%; height:100%; display:block}
+.frame path{fill:none; stroke:var(--gold-fill); stroke-width:7; stroke-linecap:round}
+.frame{transform-origin:50% 50%; animation:lock 1.1s cubic-bezier(.2,.9,.25,1.15) .35s both}
+@keyframes lock{from{transform:scale(1.32)} to{transform:scale(1)}}
+.match{position:absolute; left:6%; right:6%; bottom:6%; display:flex; gap:12px; align-items:center; background:var(--card); border-radius:16px; padding:14px 16px; box-shadow:0 10px 30px rgba(30,27,23,.12); animation:rise .6s ease-out 1.25s both}
+@keyframes rise{from{transform:translateY(16px); opacity:0} to{transform:none; opacity:1}}
+.match .seal{flex:none; width:34px; height:34px; border-radius:50%; background:var(--green); display:grid; place-items:center}
+.match .seal svg{width:18px; height:18px; fill:var(--card)}
+.match b{display:block; font-weight:600; line-height:1.3}
+.match span{font-size:.92rem; color:var(--muted)}
+@media (prefers-reduced-motion: reduce){ .frame,.match{animation:none} }
+
+/* Sections */
+section.band{padding-block:72px; border-top:1px solid var(--line)}
+.split{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start}
+.split > *{min-width:0}
+.stack{display:grid; gap:18px}
+.points{display:grid; gap:22px; margin-top:8px}
+.point h3{margin-bottom:6px}
+
+/* Example result card */
+.result{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:22px; display:grid; gap:14px}
+.result .title{font-family:var(--display); font-size:1.5rem; font-weight:600; line-height:1.15}
+.chips{display:flex; gap:8px; flex-wrap:wrap}
+.chip{font-size:.85rem; font-weight:500; padding:5px 11px; border-radius:999px; background:var(--parchment); color:var(--gold-text)}
+.chip.ok{color:var(--green)}
+.checklist{display:grid; gap:6px; margin:0; padding:0; list-style:none}
+.checklist li{display:flex; gap:10px}
+.checklist li::before{content:"?"; flex:none; width:22px; height:22px; border-radius:50%; background:var(--parchment); color:var(--amber); font-weight:700; font-size:.8rem; display:grid; place-items:center; margin-top:3px}
+.verdict{border-top:1px solid var(--line); padding-top:14px; display:grid; gap:4px}
+.verdict b{font-family:var(--display); font-size:1.15rem; font-weight:600}
+.example-tag{font-size:.82rem; color:var(--muted)}
+
+/* Map illustration */
+.mapart{background:var(--parchment); border-radius:var(--radius); overflow:hidden; max-width:100%}
+.mapart svg{display:block; width:100%; height:auto}
+.kinds{display:flex; flex-wrap:wrap; gap:8px}
+
+/* Ledger */
+.ledger{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden}
+.ledger .row{display:grid; grid-template-columns:1fr auto; gap:12px; padding:14px 18px; border-top:1px solid var(--line); align-items:baseline}
+.ledger .row:first-child{border-top:0}
+.ledger .amt{font-family:var(--display); font-weight:600; font-variant-numeric:tabular-nums}
+.ledger .net{background:var(--parchment)}
+.ledger .net .amt{color:var(--green); font-size:1.3rem}
+
+/* Plans */
+.plans{display:grid; grid-template-columns:1fr 1fr; gap:20px}
+.plan{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:24px; display:grid; gap:10px; align-content:start}
+.plan.pro{border-color:var(--gold)}
+.plan ul{margin:0; padding-left:1.1em; display:grid; gap:4px}
+.price{font-family:var(--display); font-size:1.6rem; font-weight:600}
+
+/* Support */
+.faq{display:grid; gap:10px}
+details{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:4px 18px}
+summary{cursor:pointer; font-weight:600; padding-block:14px; list-style-position:outside}
+details p{padding-bottom:16px; color:var(--muted)}
+.contact{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+.email{font-family:var(--body); font-weight:600; font-size:1.1rem; user-select:all; background:var(--parchment); padding:10px 14px; border-radius:12px}
+
+/* Footer */
+.site-foot{padding-block:36px 48px; border-top:1px solid var(--line)}
+.site-foot .wrap{display:flex; gap:20px; flex-wrap:wrap; align-items:baseline; justify-content:space-between}
+.site-foot nav{display:flex; gap:18px; flex-wrap:wrap}
+
+/* Legal pages */
+.doc{max-width:720px; padding-block:24px 72px}
+.doc h1{font-size:clamp(2.2rem, 5vw, 3.2rem); margin-bottom:10px}
+.doc h2{font-size:1.5rem; margin-top:40px; margin-bottom:10px}
+.doc p, .doc li{max-width:66ch}
+.doc ul{padding-left:1.2em; display:grid; gap:6px}
+.doc .p{margin-top:12px}
+.callout{background:var(--parchment); border-radius:14px; padding:16px 18px; margin-top:16px}
+
+@media (max-width: 860px){
+  .hero .wrap, .split, .plans{grid-template-columns:1fr; gap:36px}
+  .hero{padding-block:16px 56px}
+  .scanstage{max-width:520px}
+  section.band{padding-block:56px}
+}
+</style>
+</head>
+<body>
+<header class="site-head"><div class="wrap">
+  <a class="brand" href="index.html">TreasureHunt</a>
+  <nav class="nav" aria-label="Main">
+    <a href="index.html#scan">Scanner</a><a href="index.html#map">Map</a><a href="index.html#finds">Finds</a><a href="index.html#support">Support</a>
+    <a class="btn" href="https://apps.apple.com/us/app/id6762577426"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.6 2.25 2.75 2.21 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.71.71 2.88.69 1.19-.02 1.94-1.08 2.67-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.35-3.55zM14.18 6.13c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23z"/></svg>App Store</a>
+  </nav>
+</div></header>
+<main class="wrap"><article class="doc">
+<h1>Privacy Policy</h1>
+<p class="muted">TreasureHunt (iPhone app) by Daniel Kernan. Last updated October 17, 2026.</p>
+<p class="p">This policy explains what TreasureHunt collects, why, and who else receives it. The short version: your scans and your inventory live on your iPhone, photos go to an AI service only when you ask the app to identify something, and we don't sell your data.</p>
+
+<h2>Account</h2>
+<p>When you sign up we store your name and email, and optionally a profile photo and ZIP code. If you use Sign in with Apple, we receive an Apple identifier and the email you choose to share. Accounts are handled by Firebase Authentication (Google LLC).</p>
+
+<h2>Scans, photos and the camera</h2>
+<ul>
+<li>The camera reads barcodes and label text on your iPhone using Apple's VisionKit. This happens on the device.</li>
+<li>Every scan, with its photos, is saved on your iPhone. Your scan history, notes, the prices you type in and your inventory (Finds) stay on your iPhone and are not uploaded to our servers.</li>
+<li><b>Identifying an item.</b> When you ask TreasureHunt to identify a scan, we send a reduced copy of up to four photos, plus any barcode number or label text the camera read and any notes you added, to our server (Firebase Cloud Functions). Our server sends that to <b>Anthropic</b>, which runs the Claude AI model that identifies the item. Our server does not keep the photos. We keep a count of your identifications each month to apply your plan's allowance.</li>
+<li><b>Barcode lookups.</b> When a scan has a barcode, the barcode number is sent to UPCitemdb to look up a product name.</li>
+<li><b>Snap the Sign.</b> When you photograph a garage-sale sign, the photo is sent through our server to Anthropic so the sale details can be read from it.</li>
+</ul>
+<div class="callout">Anthropic processes these requests under its commercial terms. Under those terms Anthropic does not use them to train its models and keeps them only for a limited time, as described in <a href="https://www.anthropic.com/legal/privacy">Anthropic's privacy policy</a>. The app asks for your permission before it sends any photo for identification for the first time.</div>
+
+<h2>Location and the map</h2>
+<p>With your permission, and only while you use the app, we use your precise location to show nearby stores and sales, sort them by distance and plan routes. Store search and drive times come from Apple Maps (MapKit), which receives the map area and route you're looking at. Your location is not stored on our servers and is not shared with other users. Where you bought an item, if you type it in, stays on your iPhone.</p>
+<p class="p">If you report a store or suggest a missing one, we store the store's name and location, your report or suggestion, and your account ID so we can review it.</p>
+
+<h2>Sales, listings and messages</h2>
+<p>If you post a garage or estate sale, the listing (title, description, photos, address and dates) is stored on our servers and shown to other users. Messages between buyers and sellers are stored on our servers so both people can read them.</p>
+
+<h2>Marketplace links</h2>
+<p>Search buttons for eBay, Mercari, Poshmark and other sites open those sites with the item's name. We don't receive anything back from them. Those sites' own privacy policies apply once you're there.</p>
+
+<h2>Subscriptions</h2>
+<p>Payments are handled by Apple. We receive your subscription status, never your payment details.</p>
+
+<h2>Diagnostics</h2>
+<p>We collect basic device and crash information through Firebase to find and fix problems.</p>
+
+<h2>Who receives data</h2>
+<ul>
+<li>Google LLC (Firebase): accounts, database, server functions, diagnostics</li>
+<li>Anthropic: photos and text you send for identification or sign reading</li>
+<li>UPCitemdb: barcode numbers</li>
+<li>Apple: Sign in with Apple, subscriptions, Apple Maps search and directions</li>
+</ul>
+<p class="p">We don't sell personal data and don't use it for advertising.</p>
+
+<h2>Keeping and deleting data</h2>
+<p>You can delete your account in the app or by emailing us. We delete account data from active databases within 30 days; backups may keep it for up to 90 days. Deleting the app removes the scans and Finds stored on your iPhone.</p>
+
+<h2>Children</h2>
+<p>TreasureHunt isn't directed to children under 13, and we don't knowingly collect their data.</p>
+
+<h2>Changes and contact</h2>
+<p>If this policy changes, we'll update the date above and, for significant changes, tell you in the app. Questions: <span style="user-select:all; font-weight:600">kernan6580@gmail.com</span></p>
+</article></main>
+<footer class="site-foot"><div class="wrap">
+  <p class="small muted">TreasureHunt is made by Daniel Kernan in the Finger Lakes, New York.</p>
+  <nav class="small" aria-label="Legal"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="index.html#support">Support</a></nav>
+</div></footer>
+</body>
+</html>
