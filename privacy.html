@@ -157,11 +157,11 @@ details p{padding-bottom:16px; color:var(--muted)}
 </div></header>
 <main class="wrap"><article class="doc">
 <h1>Privacy Policy</h1>
-<p class="muted">TreasureHunt (iPhone app) by Daniel Kernan. Last updated October 17, 2026.</p>
+<p class="muted">TreasureHunt (iPhone app) by Daniel Kernan. Last updated October 22, 2026.</p>
 <p class="p">This policy explains what TreasureHunt collects, why, and who else receives it. The short version: your scans and your inventory live on your iPhone, photos go to an AI service only when you ask the app to identify something, and we don't sell your data.</p>
 
 <h2>Account</h2>
-<p>When you sign up we store your name and email, and optionally a profile photo and ZIP code. If you use Sign in with Apple, we receive an Apple identifier and the email you choose to share. Accounts are handled by Firebase Authentication (Google LLC).</p>
+<p>When you first open TreasureHunt it signs you in with an anonymous account, so you can use it without giving a name or email. If you create an account, we store your name and email, and optionally a profile photo and ZIP code. If you use Sign in with Apple, we receive an Apple identifier and the email you choose to share. Accounts are handled by Firebase Authentication (Google LLC).</p>
 
 <h2>Scans, photos and the camera</h2>
 <ul>
@@ -171,7 +171,6 @@ details p{padding-bottom:16px; color:var(--muted)}
 <li><b>Listing drafts.</b> On iPhones with Apple Intelligence, listing drafts are written on your iPhone. On other iPhones, the item details you confirm on the Create listing screen (never your photos, and never where you bought the item) are sent through our server to Anthropic to write the draft. We keep a count of drafts per month to apply your plan's allowance, not the drafts themselves.</li>
 <li><b>eBay listings.</b> To show what's for sale on eBay now, the item's name or barcode number is sent through our server to eBay's Browse API. Nothing about you is sent to eBay, and we don't store the listings.</li>
 <li><b>Barcode lookups.</b> When a scan has a barcode, the barcode number is sent to UPCitemdb to look up a product name.</li>
-<li><b>Snap the Sign.</b> When you photograph a garage-sale sign, the photo is sent through our server to Anthropic so the sale details can be read from it.</li>
 </ul>
 <div class="callout">Anthropic processes these requests under its commercial terms. Under those terms Anthropic does not use them to train its models and keeps them only for a limited time, as described in <a href="https://www.anthropic.com/legal/privacy">Anthropic's privacy policy</a>. The app asks for your permission before it sends any photo for identification for the first time.</div>
 
@@ -179,8 +178,8 @@ details p{padding-bottom:16px; color:var(--muted)}
 <p>With your permission, and only while you use the app, we use your precise location to show nearby stores and sales, sort them by distance and plan routes. Store search and drive times come from Apple Maps (MapKit), which receives the map area and route you're looking at. Your location is not stored on our servers and is not shared with other users. Where you bought an item, if you type it in, stays on your iPhone.</p>
 <p class="p">If you report a store or suggest a missing one, we store the store's name and location, your report or suggestion, and your account ID so we can review it.</p>
 
-<h2>Sales, listings and messages</h2>
-<p>If you post a garage or estate sale, the listing (title, description, photos, address and dates) is stored on our servers and shown to other users. Messages between buyers and sellers are stored on our servers so both people can read them.</p>
+<h2>Garage and estate sales</h2>
+<p>Estate and garage sales on the map come from public listings. You can view them, but the app no longer lets you post a sale or message other users. If you posted a sale or sent messages in an earlier version, that information is still stored on our servers. Delete your account, or email us, to have it removed.</p>
 
 <h2>Marketplace links</h2>
 <p>Search buttons for eBay, Mercari, Poshmark and other sites open those sites with the item's name. We don't receive anything back from them. Those sites' own privacy policies apply once you're there.</p>
@@ -194,9 +193,10 @@ details p{padding-bottom:16px; color:var(--muted)}
 <h2>Who receives data</h2>
 <ul>
 <li>Google LLC (Firebase): accounts, database, server functions, diagnostics</li>
-<li>Anthropic: photos and text you send for identification or sign reading</li>
+<li>Anthropic: photos and text you send for identification, and item details for listing drafts</li>
+<li>eBay: the item name or barcode number, to show current eBay listings</li>
 <li>UPCitemdb: barcode numbers</li>
-<li>Apple: Sign in with Apple, subscriptions, Apple Maps search and directions</li>
+<li>Apple: Sign in with Apple, subscriptions, Apple Maps search and directions, and on-device Apple Intelligence for listing drafts (which stays on your iPhone)</li>
 </ul>
 <p class="p">We don't sell personal data and don't use it for advertising.</p>
 
