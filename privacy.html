@@ -168,6 +168,8 @@ details p{padding-bottom:16px; color:var(--muted)}
 <li>The camera reads barcodes and label text on your iPhone using Apple's VisionKit. This happens on the device.</li>
 <li>Every scan, with its photos, is saved on your iPhone. Your scan history, notes, the prices you type in and your inventory (Finds) stay on your iPhone and are not uploaded to our servers.</li>
 <li><b>Identifying an item.</b> When you ask TreasureHunt to identify a scan, we send a reduced copy of up to four photos, plus any barcode number or label text the camera read and any notes you added, to our server (Firebase Cloud Functions). Our server sends that to <b>Anthropic</b>, which runs the Claude AI model that identifies the item. Our server does not keep the photos. We keep a count of your identifications each month to apply your plan's allowance.</li>
+<li><b>Listing drafts.</b> On iPhones with Apple Intelligence, listing drafts are written on your iPhone. On other iPhones, the item details you confirm on the Create listing screen (never your photos, and never where you bought the item) are sent through our server to Anthropic to write the draft. We keep a count of drafts per month to apply your plan's allowance, not the drafts themselves.</li>
+<li><b>eBay listings.</b> To show what's for sale on eBay now, the item's name or barcode number is sent through our server to eBay's Browse API. Nothing about you is sent to eBay, and we don't store the listings.</li>
 <li><b>Barcode lookups.</b> When a scan has a barcode, the barcode number is sent to UPCitemdb to look up a product name.</li>
 <li><b>Snap the Sign.</b> When you photograph a garage-sale sign, the photo is sent through our server to Anthropic so the sale details can be read from it.</li>
 </ul>
@@ -183,8 +185,8 @@ details p{padding-bottom:16px; color:var(--muted)}
 <h2>Marketplace links</h2>
 <p>Search buttons for eBay, Mercari, Poshmark and other sites open those sites with the item's name. We don't receive anything back from them. Those sites' own privacy policies apply once you're there.</p>
 
-<h2>Subscriptions</h2>
-<p>Payments are handled by Apple. We receive your subscription status, never your payment details.</p>
+<h2>Subscriptions and scan packs</h2>
+<p>Payments are handled by Apple. We receive your subscription status and scan-pack purchases, never your payment details. We keep your scan-pack balance on our server so it follows your account.</p>
 
 <h2>Diagnostics</h2>
 <p>We collect basic device and crash information through Firebase to find and fix problems.</p>
