@@ -157,7 +157,7 @@ details p{padding-bottom:16px; color:var(--muted)}
 </div></header>
 <main class="wrap"><article class="doc">
 <h1>Privacy Policy</h1>
-<p class="muted">TreasureHunt (iPhone app) by Daniel Kernan. Last updated October 22, 2026.</p>
+<p class="muted">TreasureHunt (iPhone app) by Daniel Kernan. Last updated October 28, 2026.</p>
 <p class="p">This policy explains what TreasureHunt collects, why, and who else receives it. The short version: your scans and your inventory live on your iPhone, photos go to an AI service only when you ask the app to identify something, and we don't sell your data.</p>
 
 <h2>Account</h2>
@@ -169,6 +169,7 @@ details p{padding-bottom:16px; color:var(--muted)}
 <li>Every scan, with its photos, is saved on your iPhone. Your scan history, notes, the prices you type in and your inventory (Finds) stay on your iPhone and are not uploaded to our servers.</li>
 <li><b>Identifying an item.</b> When you ask TreasureHunt to identify a scan, we send a reduced copy of up to four photos, plus any barcode number or label text the camera read and any notes you added, to our server (Firebase Cloud Functions). Our server sends that to <b>Anthropic</b>, which runs the Claude AI model that identifies the item. Our server does not keep the photos. We keep a count of your identifications each month to apply your plan's allowance.</li>
 <li><b>Listing drafts.</b> On iPhones with Apple Intelligence, listing drafts are written on your iPhone. On other iPhones, the item details you confirm on the Create listing screen (never your photos, and never where you bought the item) are sent through our server to Anthropic to write the draft. We keep a count of drafts per month to apply your plan's allowance, not the drafts themselves.</li>
+<li><b>Ask the guide.</b> When you ask the guide a question, we send your question, the last few messages of that conversation, and the facts shown on the screen you asked from (for a scan: the item name, what to check, and the numbers you entered, never your photos or where you bought the item) through our server to Anthropic to write the answer. Our server does not keep your questions or the answers; the conversation is cleared when you close the guide. We keep a count of questions to apply your plan's allowance.</li>
 <li><b>eBay listings.</b> To show what's for sale on eBay now, the item's name or barcode number is sent through our server to eBay's Browse API. Nothing about you is sent to eBay, and we don't store the listings.</li>
 <li><b>Barcode lookups.</b> When a scan has a barcode, the barcode number is sent to UPCitemdb to look up a product name.</li>
 </ul>
@@ -193,7 +194,7 @@ details p{padding-bottom:16px; color:var(--muted)}
 <h2>Who receives data</h2>
 <ul>
 <li>Google LLC (Firebase): accounts, database, server functions, diagnostics</li>
-<li>Anthropic: photos and text you send for identification, and item details for listing drafts</li>
+<li>Anthropic: photos and text you send for identification, and item details for listing drafts, and questions you ask the guide</li>
 <li>eBay: the item name or barcode number, to show current eBay listings</li>
 <li>UPCitemdb: barcode numbers</li>
 <li>Apple: Sign in with Apple, subscriptions, Apple Maps search and directions, and on-device Apple Intelligence for listing drafts (which stays on your iPhone)</li>
